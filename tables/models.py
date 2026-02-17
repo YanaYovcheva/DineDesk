@@ -6,5 +6,8 @@ class Table(models.Model):
     seats = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['number']
+
     def __str__(self):
         return f"Table {self.number}"
