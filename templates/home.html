@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to DineDesk{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold">Experience Culinary Excellence</h1>
+            <p class="lead my-4">Fresh ingredients, delightful flavors, unforgettable moments.</p>
+            <a href="#" class="btn btn-primary btn-lg custom-hero-btn">View Our Menu</a> {# Placeholder link #}
+            <a href="#" class="btn btn-outline-warning btn-lg ms-3 custom-hero-btn">Book a Table</a> {# Placeholder link #}
+        </div>
+    </section>
+
+
+
+    <!-- About Us Section (Optional, can be expanded) -->
+    <section class="about-us py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4 display-4 fw-bold">About DineDesk</h2>
+                    <p class="lead">At DineDesk, we believe in crafting exquisite culinary experiences. Our chefs use only the freshest local ingredients to bring you dishes that tantalize your taste buds and warm your soul. Come and discover your new favorite meal!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .hero-section {
+            background: url("{% static 'img/restaurant_hero.jpg' %}") no-repeat center center;
+            background-size: cover;
+            min-height: 70vh;
+        }
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 193, 7, 0.4); /* Semi-transparent warning yellow overlay */
+            z-index: 1;
+        }
+    </style>
+{% endblock %}

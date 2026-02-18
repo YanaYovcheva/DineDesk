@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Category{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0">Delete Category</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead text-center">Are you sure you want to delete the category: <strong>"{{ object.name }}"</strong>?</p>
+                    <p class="text-center text-muted">This action cannot be undone.</p>
+                    <form method="post" action="{% url 'menu:category-delete' object.pk %}" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg">Confirm Delete</button>
+                            <a href="{% url 'menu:category-list' %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
