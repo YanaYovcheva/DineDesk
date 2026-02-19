@@ -87,3 +87,6 @@ class MenuItemDeleteView(DeleteView):
             'menu:category-detail',
             kwargs={'pk': self.object.category.pk},
         )
+
+    def get_initial(self):
+        return self.object.__dict__

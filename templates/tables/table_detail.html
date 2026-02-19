@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Table {{ table.number }} Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="card-title text-center mb-4">Table {{ table.number }}</h1>
+
+        <hr>
+
+        <div class="mb-4">
+            <h4>Seats</h4>
+            <p>{{ table.seats }}</p>
+        </div>
+
+        <div class="mb-4">
+            <h4>Status</h4>
+            <p class="fs-5 fw-bold {% if table.is_available %}text-success{% else %}text-danger{% endif %}">
+                {% if table.is_available %}Available{% else %}Occupied{% endif %}
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'tables:edit' table.pk %}" class="btn btn-warning btn-lg">Edit</a>
+            <a href="{% url 'tables:delete' table.pk %}" class="btn btn-danger btn-lg">Delete</a>
+            <a href="{% url 'tables:list' %}" class="btn btn-outline-secondary btn-lg">Back to Tables</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
