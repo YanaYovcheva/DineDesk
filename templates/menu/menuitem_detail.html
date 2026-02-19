@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ item.title }} Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="card-title text-center mb-4">{{ item.title }}</h1>
+
+        {% if item.image %}
+            <div class="text-center mb-4">
+                <img src="{{ item.image.url }}" class="img-fluid rounded" alt="{{ item.title }}" style="max-height: 300px; object-fit: cover;">
+            </div>
+        {% endif %}
+
+        <hr>
+
+        <div class="mb-4">
+            <h4>Description</h4>
+            {% if item.description %}
+                <p>{{ item.description }}</p>
+            {% else %}
+                <p class="text-muted">No description available.</p>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            <h4>Price</h4>
+            <p class="fs-4 fw-bold">${{ item.price|floatformat:2 }}</p>
+        </div>
+
+        <div class="mb-4">
+            <h4>Category</h4>
+            <p>
+                <a href="{% url 'menu:category-detail' item.category.pk %}" class="btn btn-sm btn-outline-primary">
+                    {{ item.category.name }}
+                </a>
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <h4>Ingredients</h4>
+            {% if item.ingredients %}
+                <p>{{ item.ingredients|linebreaksbr }}</p>
+            {% else %}
+                <p class="text-muted">No ingredients listed.</p>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'menu:menuitem-edit' item.pk %}" class="btn btn-warning btn-lg">Edit</a>
+            <a href="{% url 'menu:menuitem-delete' item.pk %}" class="btn btn-danger btn-lg">Delete</a>
+            <a href="{% url 'menu:category-detail' item.category.pk %}" class="btn btn-outline-secondary btn-lg">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

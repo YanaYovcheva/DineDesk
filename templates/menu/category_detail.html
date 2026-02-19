@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ category.name }}</h1>
+
+<ul>
+    {% for item in items %}
+        <li>
+            <a href="{% url 'menu:menuitem-detail' item.pk %}">{{ item.title }}</a> - {{ item.price }} $.
+        </li>
+    {% empty %}
+        <li>No items in this category.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'menu:category-list' %}">Back to Categories</a>
+<a href="{% url 'menu:menuitem-create' category.pk %}">Add {{ category.name }}</a>
+
+{% endblock %}

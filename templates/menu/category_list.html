@@ -9,7 +9,7 @@
 <ul>
     {% for category in categories %}
         <li>
-            {{ category.name }}
+            <a href="{% url 'menu:category-detail' category.pk %}">{{ category.name }}</a>
             <a href="{% url 'menu:category-edit' category.pk %}">Edit</a>
             <a href="{% url 'menu:category-delete' category.pk %}">Delete</a>
         </li>

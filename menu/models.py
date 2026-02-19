@@ -32,7 +32,7 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to='menu', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    ingredients = models.ManyToManyField(Ingredient, blank=True)
+    ingredients = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
 
     class Meta:
