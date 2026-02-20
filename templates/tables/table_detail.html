@@ -22,6 +22,42 @@
             </p>
         </div>
 
+        <h3>Orders</h3>
+        {% if active_order %}
+            <p>
+                Active Order:
+                <a href="{% url 'orders:detail' active_order.pk %}">
+                    Order #{{ active_order.id }}
+                </a>
+                ({{ active_order.status }})
+            </p>
+        {% else %}
+            <p>No active order.</p>
+            <form method="post" action="{% url 'orders:create' object.pk %}">
+                {% csrf_token %}
+                <button type="submit">Create Order</button>
+            </form>
+        {% endif %}
+
+        <hr>
+
+        <h4>Order History</h4>
+
+        <ul>
+            {% for order in orders %}
+                <li>
+                    <a href="{% url 'orders:detail' order.pk %}">
+                        Order #{{ order.id }}
+                    </a>
+                    - {{ order.status }}
+                    - {{ order.created_at }}
+                </li>
+            {% empty %}
+                <li>No orders yet.</li>
+            {% endfor %}
+        </ul>
+
+
         <hr>
 
         <div class="d-flex justify-content-center gap-3">

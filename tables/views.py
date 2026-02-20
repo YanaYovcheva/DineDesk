@@ -16,6 +16,16 @@ class TableDetailView(DetailView):
     template_name = 'tables/table_detail.html'
     context_object_name = 'table'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['orders'] = self.object.order_set.all()
+        context['active_order'] = self.object.order_set.filter(
+            status__in = ['pending', 'preparing', 'served']
+        ).first()
+
+        return context
+
 
 class TableCreateView(CreateView):
     model = Table

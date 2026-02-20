@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order #{{ object.id }} Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="card-title text-center mb-4">Order #{{ object.id }}</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <p class="fs-5">
+                    <strong>Table:</strong>
+                    <a href="{% url 'tables:detail' object.table.pk %}" class="btn btn-sm btn-outline-info ms-2">
+                        Table {{ object.table.number }}
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="fs-5">
+                    <strong>Status:</strong>
+                    <span class="badge {% if object.status == 'pending' %}bg-warning text-dark{% elif object.status == 'preparing' %}bg-info{% elif object.status == 'served' %}bg-success{% elif object.status == 'paid' %}bg-primary{% endif %} fs-6">
+                        {{ object.get_status_display }}
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">Order Items</h3>
+        {% if object.order_items.all %}
+            <div class="table-responsive mb-4">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Menu Item</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in object.order_items.all %}
+                            <tr>
+                                <td>{{ item.menu_item.title }}</td>
+                                <td>${{ item.menu_item.price|floatformat:2 }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.total_price|floatformat:2 }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'orders:delete-item' item.pk %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove Item">
+                                            <i class="fas fa-trash-alt">✖</i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-end mb-4">
+                <h4><strong>Order Total: ${{ object.total_price|floatformat:2 }}</strong></h4>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                No items in this order yet.
+            </div>
+        {% endif %}
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">Add Item to Order</h3>
+        <form method="post" action="{% url 'orders:add-item' object.pk %}" class="mb-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success mt-2">Add Item</button>
+        </form>
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">Change Order Status</h3>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            {% for status_value, status_display in object.StatusChoices.choices %}
+                <form method="post" action="{% url 'orders:order-status' object.pk status_value %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-primary">Set to {{ status_display }}</button>
+                </form>
+            {% endfor %}
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{% url 'tables:detail' object.table.pk %}" class="btn btn-outline-secondary btn-lg">Back to Table</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
