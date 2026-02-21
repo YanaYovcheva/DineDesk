@@ -76,6 +76,17 @@
         <h3 class="mb-3">Add Item to Order</h3>
         <form method="post" action="{% url 'orders:add-item' object.pk %}" class="mb-4">
             {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <p class="mb-0"><strong>{{ field|capfirst }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             {{ form.as_p }}
             <button type="submit" class="btn btn-success mt-2">Add Item</button>
         </form>

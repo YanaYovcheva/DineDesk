@@ -47,5 +47,7 @@ class TableDeleteView(DeleteView):
     template_name = 'tables/table_delete.html'
     success_url = reverse_lazy('tables:list')
 
-    def get_initial(self):
-        return self.object.__dict__
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs

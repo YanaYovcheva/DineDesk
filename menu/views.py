@@ -10,6 +10,15 @@ class CategoryListView(ListView):
     template_name = 'menu/category_list.html'
     context_object_name = 'categories'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+
+        return queryset
+
 
 class CategoryCreateView(CreateView):
     model = Category
@@ -29,9 +38,13 @@ class CategoryDeleteView(DeleteView):
     model = Category
     form_class = CategoryDeleteForm
     template_name = 'menu/category_delete.html'
+    success_url = reverse_lazy('menu:category-list')
 
-    def get_initial(self):
-        return self.object.__dict__
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
+
 
 
 class CategoryDetailView(DetailView):
@@ -41,7 +54,15 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["items"] = self.object.menuitem_set.all()
+        items = self.object.menuitem_set.all()
+
+        query = self.request.GET.get('q')
+        if query:
+            items = items.filter(title__icontains=query)
+
+        context['items'] = items
+        context['query'] = query
+
         return context
 
 
@@ -88,5 +109,7 @@ class MenuItemDeleteView(DeleteView):
             kwargs={'pk': self.object.category.pk},
         )
 
-    def get_initial(self):
-        return self.object.__dict__
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
