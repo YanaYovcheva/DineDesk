@@ -56,7 +56,7 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         items = self.object.menuitem_set.all()
 
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('q', '')
         if query:
             items = items.filter(title__icontains=query)
 
