@@ -114,3 +114,10 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+By default, the server runs on http://127.0.0.1:8000/
+
+#### Step 6: Create a Superuser
+To access the admin panel, create a superuser account:
+```
+python manage.py createsuperuser
+```
