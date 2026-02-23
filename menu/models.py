@@ -25,7 +25,7 @@ class MenuItem(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, validators=[validate_menuitem_price])
     image = models.ImageField(upload_to='menu', blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     ingredients = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
 
