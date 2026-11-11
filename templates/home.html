@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -5,32 +6,24 @@
 
 {% block content %}
 
-    <section class="hero-section text-white text-center d-flex align-items-center justify-content-center">
-        <div class="container">
-            <h1 class="display-3 fw-bold">Restaurant Staff Management System</h1>
-            <p class="lead my-4">Manage tables, menu items and customer orders efficiently.</p>
-            <a href="{% url 'menu:category-list' %}" class="btn btn-primary btn-lg custom-hero-btn">View Menu</a>
-        </div>
-    </section>
+<section class="hero-section"
+         style="background-image: url('{% static 'img/restaurant_hero.jpg' %}');">
 
-{% endblock %}
+    <div class="container text-white text-center">
+        <h1 class="display-3 fw-bold">
+            Restaurant Staff Management System
+        </h1>
 
-{% block extra_head %}
-    <style>
-        .hero-section {
-            background: url("{% static 'img/restaurant_hero.jpg' %}") no-repeat center center;
-            background-size: cover;
-            min-height: 70vh;
-        }
-        .hero-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(180, 0, 0, 0.4);
-            z-index: 1;
-        }
-    </style>
+        <p class="lead my-4">
+            Manage tables, menu items and customer orders efficiently.
+        </p>
+
+        <a href="{% url 'menu:category-list' %}"
+           class="btn btn-primary btn-lg custom-hero-btn">
+            View Menu
+        </a>
+    </div>
+
+</section>
+
 {% endblock %}

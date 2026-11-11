@@ -55,7 +55,7 @@ To run this project locally, ensure you have **Python 3.10+** installed.
 
 ### Step 1: Clone the Repository
 ```bash
-git clone [https://github.com/YanaYovcheva/DineDesk.git](https://github.com/YanaYovcheva/DineDesk.git)
+git clone https://github.com/YanaYovcheva/DineDesk.git
 cd DineDesk
 ```
 
