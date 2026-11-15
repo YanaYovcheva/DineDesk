@@ -51,7 +51,7 @@ The project is organized into separate Django apps to ensure modularity, separat
 
 ## ⚙️ Setup & Installation Instructions
 
-To run this project locally, ensure you have **Python 3.10+** installed.
+To run this project locally, ensure you have **Python 3.12+** installed.
 
 ### Step 1: Clone the Repository
 ```bash
